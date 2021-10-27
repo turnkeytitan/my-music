@@ -1,4 +1,4 @@
 <app-button text="Profile" class="profile">
-  <app-login *ngIf='!tokenActive'></app-login>
-  <app-button text="Account" *ngIf='tokenActive' class="profile__item"></app-button>
+  <app-login *ngIf='!this.authService.tokenState' class="profile__item-login"></app-login>
+  <app-button text="Account" *ngIf='this.authService.tokenState' class="profile__item-acc"></app-button>
 </app-button>

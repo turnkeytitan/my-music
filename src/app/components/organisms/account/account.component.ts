@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-account',
@@ -6,13 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./account.component.sass']
 })
 export class AccountComponent implements OnInit {
-  tokenActive: boolean = false;
-  constructor() { }
+  
+  constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
-    if (localStorage.getItem('token')) {
-      this.tokenActive = true;
-    }
   }
 
 

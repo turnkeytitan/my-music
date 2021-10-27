@@ -14,11 +14,12 @@ export class AuthComponent implements OnInit {
   constructor(private route: ActivatedRoute, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(res => {
+    this.route.queryParams.subscribe((res: Redirect)=> {
       this.redirect = res;
     });
     
     this.authService.getToken(this.redirect).subscribe( (res: Token) =>{
+      this.authService.tokenState = true;
       localStorage.setItem('token',res.access_token);
       localStorage.setItem('refresh_token',res.refresh_token);
       localStorage.setItem('token_type',res.token_type);

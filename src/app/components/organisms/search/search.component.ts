@@ -7,17 +7,17 @@ import { SpotifyApiService } from '../../../services/spotify-api.service';
   styleUrls: ['./search.component.sass']
 })
 export class SearchComponent implements OnInit {
-  @ViewChild('searchBox') searchBox!: ElementRef;
+  @ViewChild('searchBox') searchBox!: ElementRef<HTMLInputElement>;
   constructor(private search: SpotifyApiService) { }
 
   ngOnInit(): void {
   }
 
-  check(e: KeyboardEvent){
-    if (e.key==="Enter") {
-      this.search.searchItem('get','search', '',
-      this.searchBox.nativeElement.value,'','','');
-      
+  check(e: KeyboardEvent) {
+    if (e.key === "Enter") {
+      this.search.searchItem('get', 'search',
+        '', this.searchBox.nativeElement.value, '', '', '');
+
     }
   }
 

@@ -45,13 +45,16 @@ export class SpotifyApiService {
     console.log(url);
     const date = new Date();
     const expDate = new Date(Date.parse(localStorage.getItem('token_expiration')!));
-    if (expDate > date) {
+    if (expDate < date) {
       this.auth.refreshToken();
     }
     if (method === 'get') {
       this.http.get(url, { headers }).subscribe(
         res => console.log(res),
-        err => {console.error(err);this.auth.refreshToken();}
+        err => {
+          console.error(err);
+          this.auth.refreshToken();
+        }
       )
     }
   }

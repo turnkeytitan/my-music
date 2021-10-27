@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './pages/home/home.component';
 import { SearchComponent } from './components/organisms/search/search.component';
 import { AccountComponent } from './components/organisms/account/account.component';
+import { TokenRedirectorComponent } from './components/atoms/token-redirector/token-redirector.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AccountComponent } from './components/organisms/account/account.compone
     LoginPageComponent,
     HomeComponent,
     SearchComponent,
-    AccountComponent
+    AccountComponent,
+    TokenRedirectorComponent
   ],
   imports: [
     BrowserModule,
