@@ -27,7 +27,11 @@ export class AuthComponent implements OnInit {
       date.setSeconds(res.expires_in);
       localStorage.setItem('token_expiration',date.toString());
       this.router.navigateByUrl('home');
-    });
+    },
+    (err) => {
+      console.error(err);
+    }
+    );
   }
 
 }

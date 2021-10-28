@@ -8,7 +8,7 @@ import { Redirect, RefreshToken, Token } from '../interfaces/login.interfaces';
 })
 export class AuthService {
 
-  public tokenState: boolean = false;
+  tokenState: boolean = false;
   constructor(private http: HttpClient) { }
 
   login() {
@@ -44,11 +44,11 @@ export class AuthService {
         'Content-Type': 'application/x-www-form-urlencoded'
     };
     this.http.post<RefreshToken>(url,body,{headers}).subscribe((a)=>{
+      this.tokenState = true;
       localStorage.setItem('token',a.access_token);
       let date = new Date();
       date.setSeconds(a.expires_in);
       localStorage.setItem('token_expiration',date.toString());
-      this.tokenState = true;
     });
   }
 

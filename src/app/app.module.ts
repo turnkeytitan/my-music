@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './pages/home/home.component';
 import { SearchComponent } from './components/organisms/search/search.component';
 import { AccountComponent } from './components/organisms/account/account.component';
-import { TokenRedirectorComponent } from './components/atoms/token-redirector/token-redirector.component';
+import { TrackComponent } from './components/organisms/track/track.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,7 @@ import { TokenRedirectorComponent } from './components/atoms/token-redirector/to
     HomeComponent,
     SearchComponent,
     AccountComponent,
-    TokenRedirectorComponent
+    TrackComponent
   ],
   imports: [
     BrowserModule,

@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
+import { SearchResponse, Tracks, TracksItem } from '../interfaces/spotify.interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpotifyApiService {
+
+  allResponse: SearchResponse | undefined;
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
@@ -24,8 +27,11 @@ export class SpotifyApiService {
     if (q !== '' || type !== '' || limit !== '' || offset !== '') {
       url += '?';
     }
-    url += `q=${q !== '' ? q : ''}`;
-    url += '&type=album,artist,playlist,track';
+    if (endpoint==='search') {
+      url += `q=${q !== '' ? q : ''}`;
+      url += '&type=album,artist,playlist,track';  
+    }
+    
     if (url.charAt(url.length - 1) === '?') {
       url += `limit=${limit !== '' ? limit : ''}`;
     } else {
@@ -49,8 +55,10 @@ export class SpotifyApiService {
       this.auth.refreshToken();
     }
     if (method === 'get') {
-      this.http.get(url, { headers }).subscribe(
-        res => console.log(res),
+      this.http.get<SearchResponse>(url, { headers }).subscribe(
+        (res) => {
+          this.allResponse = res;
+        },
         err => {
           console.error(err);
           this.auth.refreshToken();
