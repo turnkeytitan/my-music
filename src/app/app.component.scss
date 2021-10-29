@@ -1,0 +1,26 @@
+@import '../styles/variables.scss';
+header {
+  display: inline-flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $color4;
+  height: 4rem;
+  margin-bottom: 1rem;
+  .leftsy {
+    display: inline-flex;
+    img {
+      width: 38px;
+    }
+    .title {
+      margin-block-start: 0;
+      margin-block-end: 0;
+      margin-inline-start: 0;
+      margin-inline-end: 0px;
+      font-weight: lighter;
+    }
+  }
+  .account {
+    width: 20%;
+  }
+}

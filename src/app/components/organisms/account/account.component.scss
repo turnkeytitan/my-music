@@ -1,0 +1,35 @@
+@import "../../../../styles/variables.scss";
+
+.profile {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  font-size: 1.3rem;
+  padding: 19px 16px;
+  // &::before {
+  //   display: block;
+  //   position: absolute;
+  //   content: "";
+  //   right: 10px;
+  //   top: 2rem;
+  //   width: 0;
+  //   height: 0;
+  //   border-top: 50px solid white;
+  //   border-right: 30px solid transparent;
+  //   border-left: 30px solid transparent;
+  // }
+  [class^="profile__"] {
+    display: flex;
+    visibility: hidden;
+    justify-content: flex-end;
+    position: absolute;
+    top: 3.7rem;
+    min-width: 200px;
+    border-radius: 3px;
+    background-color: $color5;
+    padding: 1rem;
+  }
+}
+.profile:hover [class^="profile__"] {
+  visibility: visible;
+}

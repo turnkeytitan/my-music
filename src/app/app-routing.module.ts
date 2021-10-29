@@ -4,12 +4,13 @@ import { AppComponent } from "./app.component";
 import { AuthComponent } from './pages/auth/auth.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { HomeComponent } from './pages/home/home.component';
+import { AccountComponent } from './components/organisms/account/account.component';
 
 
 const routes: Routes = [
   {
-    path: 'login',
-    component: LoginPageComponent
+    path: '',
+    component: AppComponent
   },
   {
     path: 'auth',
@@ -22,10 +23,6 @@ const routes: Routes = [
   {
     path: '**',
     redirectTo: ''
-  },
-  {
-    path: '',
-    component: AppComponent
   }
 ];
 

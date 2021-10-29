@@ -51,5 +51,14 @@ export class AuthService {
       localStorage.setItem('token_expiration',date.toString());
     });
   }
+  isTokenActive(){
+    const date = new Date();
+    const expDate = new Date(Date.parse(localStorage.getItem('token_expiration')!));
+    if (expDate < date) {
+      this.refreshToken();
+    }else {
+      this.tokenState = true;
+    }
+  }
 
 }

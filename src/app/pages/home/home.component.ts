@@ -5,7 +5,7 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.sass']
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 
@@ -14,12 +14,10 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     if (!localStorage.getItem('token')) {
       this.router.navigateByUrl('');
+    }else {
+      this.auth.isTokenActive()
     }
-    const date = new Date();
-    const expDate = new Date(Date.parse(localStorage.getItem('token_expiration')!));
-    if (expDate < date) {
-      this.auth.refreshToken();
-    }
+    
   }
 
 }

@@ -4,7 +4,7 @@ import { AuthService } from '../../../services/auth.service';
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
-  styleUrls: ['./account.component.sass']
+  styleUrls: ['./account.component.scss']
 })
 export class AccountComponent implements OnInit {
   

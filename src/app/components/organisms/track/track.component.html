@@ -1,10 +1,14 @@
+
 <ng-container *ngIf="tracks">
-  <div class="track"> *ngFor="let track of tracks; index as i"
+  <div class="list__track" *ngFor="let track of tracks; index as i"> 
     <div class="track__img">
-      <img src="{{tracks}}" alt="">
+      <img src={{track.album.images[2].url}} alt="">
     </div>
-    <div class="track__info"></div>
-    <div class="track__album"></div>
+    <div class="track__info">
+      <p>{{ track.name }}</p>
+      <p>{{ track.artists[0].name }}</p>
+    </div>
+    <div class="track__album">{{ track.album.name }}</div>
     <div class="track__like"></div>
   </div>
 </ng-container>

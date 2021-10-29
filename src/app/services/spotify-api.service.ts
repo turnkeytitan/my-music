@@ -3,13 +3,16 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { SearchResponse, Tracks, TracksItem } from '../interfaces/spotify.interfaces';
+import { Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpotifyApiService {
 
-  allResponse: SearchResponse | undefined;
+  tracks?: TracksItem[];
+
+  subject = new Subject<Array<TracksItem>>();
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
@@ -27,11 +30,11 @@ export class SpotifyApiService {
     if (q !== '' || type !== '' || limit !== '' || offset !== '') {
       url += '?';
     }
-    if (endpoint==='search') {
+    if (endpoint === 'search') {
       url += `q=${q !== '' ? q : ''}`;
-      url += '&type=album,artist,playlist,track';  
+      url += '&type=album,artist,playlist,track';
     }
-    
+
     if (url.charAt(url.length - 1) === '?') {
       url += `limit=${limit !== '' ? limit : ''}`;
     } else {
@@ -48,22 +51,13 @@ export class SpotifyApiService {
       'Authorization': 'Bearer ' + `${localStorage.getItem('token')}`,
       'Content-Type': 'application/x-www-form-urlencoded'
     };
-    console.log(url);
-    const date = new Date();
-    const expDate = new Date(Date.parse(localStorage.getItem('token_expiration')!));
-    if (expDate < date) {
-      this.auth.refreshToken();
-    }
     if (method === 'get') {
       this.http.get<SearchResponse>(url, { headers }).subscribe(
         (res) => {
-          this.allResponse = res;
-        },
-        err => {
-          console.error(err);
-          this.auth.refreshToken();
+          this.tracks = res.tracks.items;
+          this.subject.next(this.tracks)
         }
-      )
+      );
     }
   }
 
