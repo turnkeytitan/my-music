@@ -5,6 +5,10 @@ export interface SearchResponse {
   playlists: Playlists;
 }
 
+export interface LikedTracks {
+  likes:     boolean[];
+}
+
 export interface Albums {
   href:     string;
   items:    AlbumElement[];
@@ -161,4 +165,18 @@ export interface ExternalIDS {
 
 export enum FluffyType {
   Track = "track",
+}
+export interface MeTracks {
+  href:     string;
+  items:    Item[];
+  limit:    number;
+  next:     string;
+  offset:   number;
+  previous: null;
+  total:    number;
+}
+
+export interface Item {
+  added_at: Date;
+  track:    TracksItem;
 }

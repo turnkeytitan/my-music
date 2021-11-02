@@ -17,8 +17,11 @@ export class SearchComponent implements OnInit {
   }
 
   check(e: KeyboardEvent) {
-    this.auth.isTokenActive();
-    this.api.searchItem('get', 'search', '', this.searchBox.nativeElement.value, '', '', '');
+    let abc = 'abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    if (abc.indexOf(e.code) && !(this.searchBox.nativeElement.value === '')) {
+      this.auth.isTokenActive();
+      this.api.searchItem('get', 'search', '', this.searchBox.nativeElement.value, '', '', '');
+    }
 
   }
 

@@ -1,4 +1,5 @@
 @use "sass:math";
+@import "_variables.scss";
 .list__track {
   display: flex;
   justify-content: space-evenly;
@@ -22,18 +23,29 @@
   height: 9px;
   width: 10%;
 }
-.track__like:before,
-.track__like:after {
-  position: absolute;
-  content: "";
-  left: 9px;
-  top: 0;
-  width: 10px;
-  height: 14px;
-  background: red;
-  border-radius: 50px 50px 0 0;
+.liked {
+  &::before, &::after {
+    background-color: red;
+  }
 }
-.track__like:before {
+.unliked {
+  &::before, &::after {
+    background-color: $color3;
+  }
+}
+.track__like {
+  &::before, &::after {
+    position: absolute;
+    content: "";
+    left: 9px;
+    top: 0;
+    width: 10px;
+    height: 14px;
+    border-radius: 50px 50px 0 0;
+    cursor: pointer;
+  }
+}
+.track__like::before {
   -webkit-transform: rotate(-45deg);
   -moz-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
@@ -45,7 +57,7 @@
   -o-transform-origin: 0 100%;
   transform-origin: 0 100%;
 }
-.track__like:after {
+  .track__like::after {
   left: 0;
   -webkit-transform: rotate(45deg);
   -moz-transform: rotate(45deg);

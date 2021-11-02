@@ -17,8 +17,6 @@ export class AppComponent {
       if (localStorage.getItem('token')) {
         this.auth.isTokenActive();
         this.router.navigateByUrl('home');
-      }else {
-        this.router.navigateByUrl('');
       }
     }
   }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
+import { SpotifyApiService } from '../../../services/spotify-api.service';
 
 @Component({
   selector: 'app-account',
@@ -8,10 +9,16 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class AccountComponent implements OnInit {
   
-  constructor(public authService: AuthService) { }
+  constructor(private api: SpotifyApiService, public auth: AuthService) { }
 
   ngOnInit(): void {
   }
 
-
+  favorites() {
+    this.auth.isTokenActive();
+    this.api.searchItem('get', 'me/tracks', '', '', '', '', '');
+  }
+  account() {
+    window.location.href = 'https://www.spotify.com/us/account/overview'
+  }
 }

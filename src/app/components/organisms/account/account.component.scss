@@ -1,35 +1,41 @@
-@import "../../../../styles/variables.scss";
-
+@import "_variables.scss";
 .profile {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   position: relative;
   font-size: 1.3rem;
-  padding: 19px 16px;
-  // &::before {
-  //   display: block;
-  //   position: absolute;
-  //   content: "";
-  //   right: 10px;
-  //   top: 2rem;
-  //   width: 0;
-  //   height: 0;
-  //   border-top: 50px solid white;
-  //   border-right: 30px solid transparent;
-  //   border-left: 30px solid transparent;
-  // }
-  [class^="profile__"] {
+  padding: 20px 16px;
+  &::after {
+    display: block;
+    content: "";
+    width: 0;
+    height: 0;
+    border-top: 9px solid $color3;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+  }
+  .profile__menu {
     display: flex;
+    flex-direction: column;
     visibility: hidden;
-    justify-content: flex-end;
     position: absolute;
-    top: 3.7rem;
+    top: 3.9rem;
     min-width: 200px;
     border-radius: 3px;
     background-color: $color5;
     padding: 1rem;
+    .menu__item {
+      margin: 5px;
+      cursor: pointer;
+      width: 100%;
+      text-align: right;
+      &:hover {
+        background-color: $color6;
+      }
+    }
   }
 }
-.profile:hover [class^="profile__"] {
+.profile:hover .profile__menu {
   visibility: visible;
 }

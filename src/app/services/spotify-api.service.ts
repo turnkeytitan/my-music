@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from './auth.service';
-import { SearchResponse, Tracks, TracksItem } from '../interfaces/spotify.interfaces';
-import { Subject} from 'rxjs';
+import { SearchResponse, TracksItem, MeTracks } from '../interfaces/spotify.interfaces';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +12,9 @@ export class SpotifyApiService {
   tracks?: TracksItem[];
 
   subject = new Subject<Array<TracksItem>>();
+  likesSubject = new Subject<Array<boolean>>();
 
-  constructor(private http: HttpClient, private auth: AuthService) { }
+  constructor(private http: HttpClient) { }
 
   searchItem(method: string,
     endpoint: String,
@@ -51,14 +51,47 @@ export class SpotifyApiService {
       'Authorization': 'Bearer ' + `${localStorage.getItem('token')}`,
       'Content-Type': 'application/x-www-form-urlencoded'
     };
-    if (method === 'get') {
+    if (endpoint === 'search') {
       this.http.get<SearchResponse>(url, { headers }).subscribe(
         (res) => {
           this.tracks = res.tracks.items;
-          this.subject.next(this.tracks)
+          this.subject.next(this.tracks);
+        }
+      );
+    } else if (endpoint === 'me/tracks/contains') {
+      this.http.get<boolean[]>(url, { headers }).subscribe(
+        (res) => {
+          this.likesSubject.next(res);
         }
       );
     }
+
+    if (endpoint === 'me/tracks') {
+      const body = {
+        'ids': [data]
+      };
+      if (method === 'get') {
+        this.http.get<MeTracks>(url, { headers }).subscribe(
+          (res) => {
+            this.tracks = res.items.map((a) => a.track);
+            this.subject.next(this.tracks);
+          }
+        );
+      } else if (method === 'put') {
+        this.http.put(url, body, { headers }).subscribe(
+          (res) => {
+            console.log(res,'p');
+          }
+        );
+      } else if (method === 'delete') {
+        this.http.delete<MeTracks>(url, { headers }).subscribe(
+          (res) => {
+            console.log(res,'d');
+          }
+        );
+      }
+    }
+
   }
 
 }

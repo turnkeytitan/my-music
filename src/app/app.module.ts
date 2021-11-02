@@ -7,12 +7,12 @@ import { ButtonComponent } from './components/atoms/button/button.component';
 import { LoginComponent } from './components/organisms/login/login.component';
 import { AuthService } from './services/auth.service';
 import { AuthComponent } from './pages/auth/auth.component';
-import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './pages/home/home.component';
 import { SearchComponent } from './components/organisms/search/search.component';
 import { AccountComponent } from './components/organisms/account/account.component';
 import { TrackComponent } from './components/organisms/track/track.component';
+import { NosessionComponent } from './pages/nosession/nosession.component';
 
 @NgModule({
   declarations: [
@@ -20,11 +20,11 @@ import { TrackComponent } from './components/organisms/track/track.component';
     ButtonComponent,
     LoginComponent,
     AuthComponent,
-    LoginPageComponent,
     HomeComponent,
     SearchComponent,
     AccountComponent,
-    TrackComponent
+    TrackComponent,
+    NosessionComponent
   ],
   imports: [
     BrowserModule,

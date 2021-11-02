@@ -1,6 +1,5 @@
-
 <ng-container *ngIf="tracks">
-  <div class="list__track" *ngFor="let track of tracks; index as i"> 
+  <div class="list__track" *ngFor="let track of tracks; index as i">
     <div class="track__img">
       <img src={{track.album.images[2].url}} alt="">
     </div>
@@ -9,6 +8,12 @@
       <p>{{ track.artists[0].name }}</p>
     </div>
     <div class="track__album">{{ track.album.name }}</div>
-    <div class="track__like"></div>
+    <ng-container *ngIf="likedTracks">
+      <div 
+        class="track__like {{likedTracks[i]? 'liked' : 'unliked'}}" 
+        id="{{track.id}}"
+        (click)="changeLike($event)"
+      ></div>
+    </ng-container>
   </div>
 </ng-container>
