@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TrackComponent } from './track.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('TrackComponent', () => {
   let component: TrackComponent;
@@ -8,7 +9,10 @@ describe('TrackComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TrackComponent ]
+      declarations: [ TrackComponent ],
+      imports: [
+        HttpClientTestingModule
+      ]
     })
     .compileComponents();
   });
