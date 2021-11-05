@@ -10,7 +10,8 @@ import { Subject } from 'rxjs';
 export class SpotifyApiService {
 
   tracks?: TracksItem[];
-
+  offset = 0;
+  offsetOn = false
   subject = new Subject<Array<TracksItem>>();
   likesSubject = new Subject<Array<boolean>>();
 
@@ -21,13 +22,13 @@ export class SpotifyApiService {
     data: string = '',
     q: string = '',
     type: string = '',
-    limit: string = '',
-    offset: string = '') {
+    limit: number = 0,
+    offset: number = 0) {
 
     let url = `${environment.apiUrl}`;
     url += `${endpoint}`;
     url += `${data !== '' ? data : ''}`;
-    if (q !== '' || type !== '' || limit !== '' || offset !== '') {
+    if (q !== '' || type !== '' || limit !== 0 || offset !== 0) {
       url += '?';
     }
     if (endpoint === 'search') {
@@ -36,24 +37,30 @@ export class SpotifyApiService {
     }
 
     if (url.charAt(url.length - 1) === '?') {
-      url += `limit=${limit !== '' ? limit : ''}`;
+      if(limit !== 0 )url += 'limit=';
+      url += `${limit !== 0 ? limit : ''}`;
     } else {
-      url += `${limit !== '' ? '&limit=' : ''}`;
-      url += `${limit !== '' ? limit : ''}`;
+      url += `${limit !== 0 ? '&limit=' : ''}`;
+      url += `${limit !== 0 ? limit : ''}`;
     }
     if (url.charAt(url.length - 1) === '?') {
-      url += `offset=${offset !== '' ? offset : ''}`;
+      url += `offset=${offset !== 0 ? offset : ''}`;
     } else {
-      url += `${offset !== '' ? '&offset=' : ''}`;
-      url += `${offset !== '' ? offset : ''}`;
+      url += `${offset !== 0 ? '&offset=' : ''}`;
+      url += `${offset !== 0 ? offset : ''}`;
     }
     const headers = {
       'Authorization': 'Bearer ' + `${localStorage.getItem('token')}`,
       'Content-Type': 'application/x-www-form-urlencoded'
     };
+    const body = {
+      'ids': [data.substring(1)]
+    };
     if (endpoint === 'search') {
       this.http.get<SearchResponse>(url, { headers }).subscribe(
         (res) => {
+          this.offset = 0;
+          this.offsetOn = false;
           this.tracks = res.tracks.items;
           this.subject.next(this.tracks);
         }
@@ -64,30 +71,22 @@ export class SpotifyApiService {
           this.likesSubject.next(res);
         }
       );
-    }
-
-    if (endpoint === 'me/tracks') {
-      const body = {
-        'ids': [data]
-      };
+    } else if (endpoint === 'me/tracks') {
       if (method === 'get') {
         this.http.get<MeTracks>(url, { headers }).subscribe(
           (res) => {
             this.tracks = res.items.map((a) => a.track);
             this.subject.next(this.tracks);
+            this.offsetOn = true;
           }
         );
       } else if (method === 'put') {
         this.http.put(url, body, { headers }).subscribe(
-          (res) => {
-            console.log(res,'p');
-          }
+          (res) => { }
         );
       } else if (method === 'delete') {
         this.http.delete<MeTracks>(url, { headers }).subscribe(
-          (res) => {
-            console.log(res,'d');
-          }
+          (res) => { }
         );
       }
     }

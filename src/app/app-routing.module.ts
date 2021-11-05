@@ -7,20 +7,23 @@ import { NosessionComponent } from './pages/nosession/nosession.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: NosessionComponent
-  },
-  {
     path: 'auth',
-    component: AuthComponent
+    component: AuthComponent,
+    pathMatch: 'full'
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: '',
+    component: NosessionComponent,
+    pathMatch: 'full'
   },
   {
     path: '**',
-    redirectTo: ''
+    redirectTo: 'home'
   }
 ];
 

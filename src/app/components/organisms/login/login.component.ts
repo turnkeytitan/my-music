@@ -10,12 +10,12 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService) { }
 
+  login!: string
   ngOnInit(): void {
+
+    this.login = this.authService.login()
+    
   }
 
-  authorize(){
-    window.location.href=this.authService.login();
-
-  }
 }
 

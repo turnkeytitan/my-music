@@ -1,7 +1,7 @@
 <app-button text="Profile" class="profile">
   <div class="profile__menu">
     <app-login *ngIf='!this.auth.tokenState' class="menu__item login"></app-login>
-    <app-button text="Account" *ngIf='this.auth.tokenState' class="menu__item acc" (click)="account()"></app-button>
+    <a href="https://www.spotify.com/us/account/overview"><app-button text="Account" *ngIf='this.auth.tokenState' class="menu__item acc"></app-button></a>
     <app-button text="Favorites" *ngIf='this.auth.tokenState' class="menu__item fav" (click)="favorites()"></app-button>
   </div>
 </app-button>

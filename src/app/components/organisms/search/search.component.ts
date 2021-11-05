@@ -17,10 +17,10 @@ export class SearchComponent implements OnInit {
   }
 
   check(e: KeyboardEvent) {
-    let abc = 'abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
-    if (abc.indexOf(e.code) && !(this.searchBox.nativeElement.value === '')) {
+    const ABC = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    if (ABC.indexOf(e.code) && !(this.searchBox.nativeElement.value === '')) {
       this.auth.isTokenActive();
-      this.api.searchItem('get', 'search', '', this.searchBox.nativeElement.value, '', '', '');
+      this.api.searchItem('get', 'search', '', this.searchBox.nativeElement.value);
     }
 
   }

@@ -25,10 +25,15 @@
     border-radius: 3px;
     background-color: $color5;
     padding: 1rem;
+    a {
+      text-decoration: inherit;
+      color: inherit;
+      text-align: right;
+      margin: 5px;
+    }
     .menu__item {
       margin: 5px;
       cursor: pointer;
-      width: 100%;
       text-align: right;
       &:hover {
         background-color: $color6;

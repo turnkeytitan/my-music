@@ -16,9 +16,7 @@ export class AccountComponent implements OnInit {
 
   favorites() {
     this.auth.isTokenActive();
-    this.api.searchItem('get', 'me/tracks', '', '', '', '', '');
-  }
-  account() {
-    window.location.href = 'https://www.spotify.com/us/account/overview'
+    this.api.offset = 0;
+    this.api.searchItem('get', 'me/tracks');
   }
 }
