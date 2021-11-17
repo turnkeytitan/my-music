@@ -1,7 +1,8 @@
 <ng-container *ngIf="tracks">
   <div class="list__track" *ngFor="let track of tracks; index as i">
-    <div class="track__img">
+    <div (click)="playTrack(track.preview_url, track.id)" class="track__img">
       <img src={{track.album.images[2].url}} alt="">
+      <div class="img__playButton id-{{track.id}}" *ngIf="track.preview_url"></div>
     </div>
     <div class="track__info">
       <p>{{ track.name }}</p>

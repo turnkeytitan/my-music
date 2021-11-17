@@ -7,6 +7,10 @@ header {
   background-color: $color4;
   height: 4rem;
   margin-bottom: 1rem;
+  a {
+    text-decoration: inherit;
+    color: inherit;
+  }
   .leftsy {
     display: inline-flex;
     img {

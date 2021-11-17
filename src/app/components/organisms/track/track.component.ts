@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { TracksItem } from '../../../interfaces/spotify.interfaces';
 import { SpotifyApiService } from '../../../services/spotify-api.service';
 import { AuthService } from '../../../services/auth.service';
@@ -12,8 +12,10 @@ export class TrackComponent implements OnInit {
 
   tracks: TracksItem[] = [];
   likedTracks: boolean[] = [];
+  player: [HTMLAudioElement | null, string | null, boolean | null] = [null, null, null];
 
-  constructor(public api: SpotifyApiService, private auth: AuthService) {
+
+  constructor(private api: SpotifyApiService, private auth: AuthService) {
     this.listen();
     window.onscroll = this.loadMoreFavs.bind(this);
   }
@@ -62,6 +64,38 @@ export class TrackComponent implements OnInit {
       this.auth.isTokenActive();
       this.api.offset += 20;
       this.api.searchItem('get', 'me/tracks', '', '', '', 0, this.api.offset);
+    }
+  }
+  playTrack(trackUrl: string | null, id: string) {
+    let className1 = ".img__playButton.id-";
+    let className2 = ".img__pauseButton.id-";
+    if (trackUrl && !(this.player[2])) {
+      if (this.player[1] !== id) {
+        this.player[0] = new Audio(trackUrl);
+        this.player[1] = id;
+      }
+      this.player[0]!.play();
+      this.player[2] = !(this.player[2]);
+      className1 += id;
+      document.querySelector(className1)?.classList.replace('img__playButton', 'img__pauseButton');
+    }
+    else if (this.player[2]) {
+      if (trackUrl) {
+        this.player[0]!.pause();
+        if (this.player[1] !== id) {
+          this.player[0] = new Audio(trackUrl);
+          className2 += this.player[1];
+          document.querySelector(className2)?.classList.replace('img__pauseButton', 'img__playButton');
+          this.player[1] = id;
+          this.player[0]!.play();
+          className1 += this.player[1];
+          document.querySelector(className1)?.classList.replace('img__playButton', 'img__pauseButton');
+        } else {
+          this.player[2] = !(this.player[2]);
+          className2 += this.player[1];
+          document.querySelector(className2)?.classList.replace('img__pauseButton', 'img__playButton');
+        }
+      }
     }
   }
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { SearchResponse, TracksItem, MeTracks } from '../interfaces/spotify.interfaces';
+import { SearchResponse, TracksItem, MeTracks, Playlists, Featured, Albums } from '../interfaces/spotify.interfaces';
 import { Subject } from 'rxjs';
 
 @Injectable({
@@ -89,6 +89,19 @@ export class SpotifyApiService {
           (res) => { }
         );
       }
+    } else if (endpoint === 'browse/featured-playlists') {
+      this.http.get<Featured>(url, { headers }).subscribe(
+        res => this.searchItem('get',`playlists/${res.playlists.items[0].id}/tracks`)
+      );
+      
+    } else if (endpoint.match('playlists')){
+      this.http.get<MeTracks>(url, { headers }).subscribe(
+        res => {
+          this.tracks = res.items.map((a) => a.track);
+          this.subject.next(this.tracks);
+          this.offsetOn = false;
+        }
+      );
     }
 
   }

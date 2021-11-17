@@ -9,6 +9,11 @@ export interface LikedTracks {
   likes:     boolean[];
 }
 
+export interface Featured {
+  playlists:  Playlists;
+  message: string;
+}
+
 export interface Albums {
   href:     string;
   items:    AlbumElement[];

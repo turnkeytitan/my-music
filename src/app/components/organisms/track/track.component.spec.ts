@@ -78,7 +78,6 @@ describe('TrackComponent', () => {
     expect(()=>component.changeLike(event)).not.toThrow();
   });
   it('should push more tracks in favorites', () => {
-    component.api.offsetOn = true;
     expect(()=>component.handleTracks([])).not.toThrow();
   });
 });
