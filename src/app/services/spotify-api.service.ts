@@ -91,7 +91,7 @@ export class SpotifyApiService {
       }
     } else if (endpoint === 'browse/featured-playlists') {
       this.http.get<Featured>(url, { headers }).subscribe(
-        res => this.searchItem('get',`playlists/${res.playlists.items[0].id}/tracks`)
+        res => this.searchItem('get',`playlists/${res.playlists.items[0].id}/tracks`,'','','',50)
       );
       
     } else if (endpoint.match('playlists')){
